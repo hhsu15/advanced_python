@@ -1,24 +1,26 @@
-import threading
-import time 
-class AsyncWrite(threading.Thread):
-	def __init__(self, text, out):
-		threading.Thread.__init__(self)
-		self.text = text
-		self.out = out
+from threading import Thread
+from threading import Lock
+import time
 
-	def run(self):
-		f = open(self.out, 'a')
-		f.write(self.text + '\n')
-		f.close()
-		time.sleep(2)
-		print('finished background file write to'+self.out)
-def main():
-	message = input('enter a string to store')
-	background = AsyncWrite(message, 'out.txt')
-	background.start()
-	print('the program can contiune whilel it writes in another thread')
-	background.join()
-	print('wait until thread was complete')
+t_lock = Lock()
+db = []
 
+def timer(name, delay, repeat):
+	print('start ' + name + '\n')
+	
+	while repeat > 0:
+		time.sleep(delay)
+		print(name + ': ' + str(time.ctime()))
+		db.append(name + ': ' + str(time.ctime()))
+		
+		repeat -= 1
+	print(name + 'is done')
+		
 if __name__ == "__main__":
-	main()
+	t1 = Thread(target=timer, args=('timer_1', 2, 5))
+	t2 = Thread(target=timer, args=('timer_2', 4, 5))
+
+	t1.start()
+	t2.start()
+	print('...this is last line of code...')
+
