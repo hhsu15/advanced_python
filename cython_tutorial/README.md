@@ -1,4 +1,5 @@
 # Compile as cyhton 
+- first of course, `pip install cython`
 - save the `*.py` file as `*.pyx`
 - create a `setup.py` file - refer to example
 - run `python setup.py build_ext --inplace`
