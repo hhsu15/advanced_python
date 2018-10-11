@@ -26,7 +26,8 @@ class MyDescriptor(object):
 class MyClass2(object):
 	x = MyDescriptor() # attached at class definition
 	pass
-
+"""
 obj = MyClass2()
 obj.x # "will print self, obj, type"
 obj.x = 4 # "Got 4"
+"""
