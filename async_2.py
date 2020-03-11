@@ -20,7 +20,7 @@ async def task(name, work_queue):
 	timer = Timer(text=f'Task {name} elasped time: {{:.1f}}')
 	while not work_queue.empty():
 		# this is needed otherwise it won't work. It seems for queue get/put you always have to use await
-		delay = await work_queue.get()   
+		delay = await work_queue.get()
 		print(f'Task {name} running')
 
 		timer.start()
@@ -31,8 +31,8 @@ async def main():
 	work_queue = asyncio.Queue()
 
 	for work in [15, 10, 5, 2]:
-		await work_queue.put(work) # this is needed otherwise it won't work! 
-   
+		await work_queue.put(work) # this is needed otherwise it won't work!
+
     # Run the tasks
 	with Timer(text="\nTotal elapsed time: {:.1f}"):
 		# The gather() will do two things, one is to gather the tasks that you create using asyncio.create_task
@@ -43,7 +43,7 @@ async def main():
 			asyncio.create_task(task("three", work_queue)),
 			asyncio.create_task(task("four", work_queue)),
 		)
-	
+
 	print("I am all done!")  # this should be executed after the asyncio.gather is all done
 
 
